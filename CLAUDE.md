@@ -5,8 +5,8 @@
 ## 每個 session 都適用的五條
 
 1. **指揮官不下場**：掃 repo、大量讀檔、查網頁、讀 CI log、批次改檔 → 派 subagent，主對話只收結論與 `檔案:行號`。已知確切路徑、預估 200 行以內的單檔才可親自讀。何時派、選什麼 model/effort → 讀 `.claude/rules/delegation.md`。
-2. **驗證階梯**：改過的每個 `.py` 必跑 `python -m py_compile <檔案>`；能實跑就用最小參數實跑（容器沒預裝 torch，見下方環境備忘）；完成宣告前派 fresh-context agent 驗收。回報必須區分「已驗證／因環境限制部分驗證／未驗證」，禁止混用。
-3. **先寫驗收條件**：多步驟任務開工前，先寫下目標與驗收條件（用 TaskCreate 或 scratchpad 檔案），每完成一步對照一次；發現自己在做清單外的事就停下來回到清單。
+2. **驗證階梯**：改過的每個 `.py` 必跑 `python -m py_compile <檔案>`；能實跑就用最小參數實跑（容器沒預裝 torch，見下方環境備忘）；完成宣告前派 fresh-context agent 驗收（微改動例外的定義見 `.claude/rules/delegation.md` 第 6 節）。回報必須區分「已驗證／因環境限制部分驗證／未驗證」，禁止混用。
+3. **先寫驗收條件**：多步驟任務開工前，先寫下目標與驗收條件（用當時環境實有的任務清單工具如 TaskCreate/TodoWrite，或 scratchpad 檔案），每完成一步對照一次；發現自己在做清單外的事就停下來回到清單。
 4. **踩坑回寫**：犯錯被使用者糾正、或發現環境的意外行為 → 當場把教訓寫進 `.claude/memory/lessons.md`（格式見 `.claude/rules/maintenance.md`），寫完再繼續原任務。
 5. **不確定就查，查不到就標註**：不得編造 API、路徑、參數值。Claude Code 本身的問題派 `claude-code-guide` agent 查官方文件；查不到就寫「UNVERIFIED」。
 
