@@ -36,7 +36,7 @@
 
 **具體修法**（驗證階梯，由便宜到貴，逐級做到做不動為止）：
 1. **語法層**：改過的每個 `.py` 都跑 `python -m py_compile <檔案>`。零成本，不可跳過。
-2. **執行層**：用最小參數實跑，例如 `python main.py --epochs 1 --dry-run`（mnist 支援 `--dry-run`；其他範例找等效的最小參數，如 `--epochs 1` 加小 batch）。資料集下載失敗算「環境受限」，要如實回報，不算驗證通過。
+2. **執行層**：用最小參數實跑，例如 `python main.py --epochs 1 --no-cuda --batch-size 4`（本 fork 是舊版 pytorch/examples，**沒有** `--dry-run` 參數；先看該範例的 `add_argument` 有什麼可用）。注意：容器**沒有預裝 torch**，先跑 `pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu`（CPU 版較小）。裝不起來、或資料集下載失敗，算「環境受限」，要如實回報，不算驗證通過。
 3. **驗收層**：完成宣告前，派一個 fresh-context subagent 做驗收（規則見 `.claude/rules/delegation.md` 的「驗證不自驗」）。改檔用 read-back，程式碼用實跑或測試。
 4. 回報時區分三種狀態：「已驗證通過」「因環境限制只驗到第 N 層」「未驗證」。禁止把後兩者說成第一種。
 
